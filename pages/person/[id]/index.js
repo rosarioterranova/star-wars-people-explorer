@@ -6,6 +6,14 @@ export default function Person({data}) {
     const router = useRouter()
     const {id}= router.query
 
+    function goNext(){
+        router.push(`/person/${Number(id)+1}`)
+    }
+
+    function goPreviuos(){
+        router.push(`/person/${Number(id)-1}`)
+    }
+
     return (
         <div className="index container">
             {
@@ -29,7 +37,8 @@ export default function Person({data}) {
                 <p>Loading...</p>
                 </>)
             }
-            
+        <button className="btn btn-dark m-1" onClick={goPreviuos} disabled={id == 0 ? true:false}>Previous</button>
+        <button className="btn btn-dark m-1" onClick={goNext} disabled={id == data.length-1 ? true:false}>Next</button>
         </div>
     )
 }
