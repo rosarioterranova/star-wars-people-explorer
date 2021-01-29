@@ -7,6 +7,7 @@ export default function MyApp({ Component, pageProps }) {
 
   const [people, setPeople] = useState([])
 
+  //Get People on app mount
   useEffect(()=>{
     fetch("https://swapi.dev/api/people/")
     .then(result => result.json())

@@ -6,12 +6,10 @@ export default function Person({data}) {
     const router = useRouter()
     const {id}= router.query
 
-    let isLoaded = data[id] !== undefined ? true : false
-
     return (
-        <div className="index">
+        <div className="index container">
             {
-                isLoaded ? 
+                data[id] !== undefined ? 
                 (<>
                     <Header title={`${data[id].name} | SWPE`} />
                     <h1>{data[id].name}</h1>

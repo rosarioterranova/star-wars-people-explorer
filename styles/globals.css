@@ -3,3 +3,16 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+.navbar-nav li{
+  margin: 10px;
+}
+
+a{
+  color: black;
+}
+
+a:hover{
+  color: gray;
+  text-decoration: none;
+}
