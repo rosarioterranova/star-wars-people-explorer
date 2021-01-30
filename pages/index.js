@@ -13,7 +13,7 @@ export default function Home({people}) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch("https://swapi.dev/api/people/")
   const data = await res.json()
   const people = data.results

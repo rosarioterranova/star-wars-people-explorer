@@ -31,8 +31,18 @@ export default function Person({person}) {
     )
 }
 
-export async function getServerSideProps({params}) {
+export async function getStaticProps({params}) {
     const res = await fetch(`https://swapi.dev/api/people/${params.id}`)
     const person = await res.json()
     return { props: { person } }
+}
+
+export async function getStaticPaths() {
+    const res = await fetch("https://swapi.dev/api/people/")
+    const data = await res.json()
+    const people = data.results
+    const paths = people.map((person,index) => ({
+        params: { id: String(index+1) },
+    }))
+    return { paths, fallback: false }
 }
