@@ -7,7 +7,7 @@ export default function PeopleList({people}) {
             people.map((person,index) =>{
               return(
                 <li key={index} className="list-group-item">
-                  <Link href={`/person/${index}`}>{person.name}</Link>
+                  <Link href={`/person/${index+1}`}>{person.name}</Link>
                 </li>
             )})
           }
