@@ -1,10 +1,9 @@
 import Header from "../../../components/Header"
 import {useRouter} from "next/router"
 
-export default function Person({data}) {
-
+export default function Person({people}) {
     const router = useRouter()
-    const {id}= router.query
+    const { id } = router.query
 
     function goNext(){
         router.push(`/person/${Number(id)+1}`)
@@ -15,19 +14,20 @@ export default function Person({data}) {
     }
 
     let body = (<p>Loading...</p>)
-    if(data[id] !== undefined){
+
+    if(people[id] !== undefined){
         body = (
             <>
-                <Header title={`${data[id].name} | SWPE`} />
-                <h1>{data[id].name}</h1>
+                <Header title={`${people[id].name} | SWPE`} />
+                <h1>{people[id].name}</h1>
                 <ul>
-                    <li>Height: {data[id].height}</li>
-                    <li>mass: {data[id].mass}</li>
-                    <li>Hair Color: {data[id].hair_color}</li>
-                    <li>Skin Color: {data[id].skin_color}</li>
-                    <li>Eye Csolor: {data[id].eye_color}</li>
-                    <li>Birth Year: {data[id].birth_year}</li>
-                    <li>Gender: {data[id].gender}</li>
+                    <li>Height: {people[id].height}</li>
+                    <li>mass: {people[id].mass}</li>
+                    <li>Hair Color: {people[id].hair_color}</li>
+                    <li>Skin Color: {people[id].skin_color}</li>
+                    <li>Eye Csolor: {people[id].eye_color}</li>
+                    <li>Birth Year: {people[id].birth_year}</li>
+                    <li>Gender: {people[id].gender}</li>
                 </ul>
             </>
         )
@@ -37,7 +37,14 @@ export default function Person({data}) {
         <div className="index container">
             {body}
             <button className="btn btn-dark m-1" onClick={goPreviuos} disabled={id == 0 ? true:false}>Previous</button>
-            <button className="btn btn-dark m-1" onClick={goNext} disabled={id == data.length-1 ? true:false}>Next</button>
+            <button className="btn btn-dark m-1" onClick={goNext} disabled={id == people.length-1 ? true:false}>Next</button>
         </div>
     )
+}
+
+export async function getServerSideProps() {
+    const res = await fetch("https://swapi.dev/api/people/")
+    const data = await res.json()
+    const people = data.results
+    return { props: { people } }
 }
